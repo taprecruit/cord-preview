@@ -1,0 +1,7 @@
+TemplateID       Subject          Pre-header
+MENTION_NOTIFICATION_NO_POWERED_BY_CORD    New activity on {{{Page_Name}}}    {{{Current_Message_User_Details.name}}} {{Action}} -
+MENTION_NOTIFICATION_V2    New activity on {{{Page_Name}}}    {{{Current_Message_User_Details.name}}} {{Action}} -
+THREAD_RESOLVE    New activity on {{{Page_Name}}}    {{{Current_Message_User_Details.name}}} {{Action}} -
+THREAD_RESOLVE_NO_POWERED_BY_CORD    New activity on {{{Page_Name}}}    {{{Current_Message_User_Details.name}}} {{Action}} -
+SHARE_TO_EMAIL    {{{Sender_Name}}} shared a thread with you on {{{Page_Name}}}    {{Preview_Text}} -
+SHARE_TO_EMAIL_NO_POWERED_BY_CORD    {{{Sender_Name}}} shared a thread with you on {{{Page_Name}}}    {{Preview_Text}} -
