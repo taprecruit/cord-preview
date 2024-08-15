@@ -66,7 +66,7 @@ export const FeatureFlags = {
   } as FeatureFlag<'show_activation_welcome_message_nux', boolean>,
   ENABLE_SLACK_FEATURES: {
     key: 'enable-slack-features',
-    defaultValue: true,
+    defaultValue: false,
   } as FeatureFlag<'enable-slack-features', boolean>,
   ENABLE_DEV_CONSOLE_SELF_SERVE: {
     key: 'enable-dev-console-self-serve',
