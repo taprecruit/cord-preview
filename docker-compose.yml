@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  predis:
+    image: redis:6.0.5-alpine
+    restart: always
+
+  redis:
+    image: redis:6.0.5-alpine
+    restart: always
+
+  server:
+    image: cord-prod-server
+    command: bash -c 'npm i sharp yargs && ./run-server.sh'
+    build:
+      context: .
+      dockerfile: ./ops/dockerfiles/server.Dockerfile
+    environment:
+      - CORD_TIER=prod
+    depends_on:
+      - redis
+      - predis
+    restart: always
+    ports:
+      - '8101:8101'
+      - '8111:8111'
+      - '8123:8123'
+      - '8161:8161'
+      - '8171:8171'
+
+  worker:
+    image: cord-prod-server
+    command: bash -c 'npm i sharp yargs && npm run start-asyncWorker-prod'
+    environment:
+      - CORD_TIER=prod
+    depends_on:
+      - server
+    restart: always
