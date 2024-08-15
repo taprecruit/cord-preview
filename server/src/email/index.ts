@@ -300,13 +300,13 @@ async function getThreadingHeaders(
 
   if (isFirstEmail) {
     return {
-      'Message-ID': `<thread-${emailNotification.threadID}@cord.fyi>`,
+      'Message-ID': `<thread-${emailNotification.threadID}@parse.cord.datapeople.io>`,
     };
   } else {
     return {
-      'Message-ID': `<notif-${emailNotification.id}@cord.fyi>`,
-      'In-Reply-To': `<thread-${emailNotification.threadID}@cord.fyi>`,
-      References: `<thread-${emailNotification.threadID}@cord.fyi>`,
+      'Message-ID': `<notif-${emailNotification.id}@parse.cord.datapeople.io>`,
+      'In-Reply-To': `<thread-${emailNotification.threadID}@parse.cord.datapeople.io>`,
+      References: `<thread-${emailNotification.threadID}@parse.cord.datapeople.io>`,
     };
   }
 }

@@ -18,3 +18,5 @@ storybook-static
 /tmp/
 screenshotsDiff/test.spec.js-snapshots   
 screenshotsDiff/test-results  
+
+.idea/
