@@ -3,6 +3,7 @@ import isUUID from 'validator/lib/isUUID.js';
 import replyParser from 'node-email-reply-parser';
 import type { MessageContent, UUID } from 'common/types/index.ts';
 import { MessageNodeType } from 'common/types/index.ts';
+import env from 'server/src/config/Env.ts';
 import { anonymousLogger } from 'server/src/logging/Logger.ts';
 import type { Logger } from 'server/src/logging/Logger.ts';
 import { EmailOutboundNotificationEntity } from 'server/src/entity/email_notification/EmailOutboundNotificationEntity.ts';
@@ -32,12 +33,17 @@ export function getReplyToEmailAddress(
   try {
     const parsedAddress = parseEmailAddress(senderEmailAddress);
 
+    const replyToDomain =
+      env.CORD_TIER === 'prod'
+        ? 'parse.cord.datapeople.io'
+        : 'parse.cord-test.datapeople.io';
+
     // Applications can use a white-label (non-@cord.fyi) sender email. That's
     // fine, but replies MUST come via cord.fyi; those emails get routed through
     // SendGrid, who call a webhook (search this repo for
     // SendGridWebhookHandler) so we can handle them and e.g. append reply
     // contents to the appropriate thread.
-    const replyToAddress = `${parsedAddress.local}-${notificationId}@parse.cord.datapeople.io`;
+    const replyToAddress = `${parsedAddress.local}-${notificationId}@${replyToDomain}`;
     if (parsedAddress.name) {
       return `${parsedAddress.name} <${replyToAddress}>`;
     }

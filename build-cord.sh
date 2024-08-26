@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ "$HOSTNAME" = "cord-prod" ]; then
+  STATIC_PATH="cord";
+else
+  STATIC_PATH="cord-test";
+fi
+
 # exit on error
 set -e
 
@@ -10,11 +16,11 @@ echo "build cord"
 CORD_BUILD_OUTPUT=dist/generic npm run build
 
 echo "copy static and sdk files"
-aws s3 cp dist/generic/external/static s3://datapeople-static/cord/static --recursive
-aws s3 cp dist/generic/external/sdk s3://datapeople-static/cord/sdk --recursive
+aws s3 cp dist/generic/external/static s3://datapeople-static/$STATIC_PATH/static --recursive
+aws s3 cp dist/generic/external/sdk s3://datapeople-static/$STATIC_PATH/sdk --recursive
 
 echo "invalidate cloudfront cache"
-aws cloudfront create-invalidation --distribution-id=E30AHFUM5FTUOB --paths '/cord/*'
+aws cloudfront create-invalidation --distribution-id=E30AHFUM5FTUOB --paths "/$STATIC_PATH/*"
 
 echo "build docker images"
 docker compose build

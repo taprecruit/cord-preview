@@ -199,7 +199,7 @@
                                       <tr>
                                         <td style="width: 0%">
                                           {{#if Current_Message_User_Details.profile_picture}}
-                                          <img src="{{Current_Message_User_Details.profile_picture}}" alt="Avatar of {{Current_Message_User_Details.name}}" style="
+                                          <img src="{{Current_Message_User_Details.profile_picture}}" alt="Avatar of {{{Current_Message_User_Details.name}}}" style="
                 border-radius: 50%;
                 height: 20px;
                 margin-right: 8px;
@@ -223,7 +223,7 @@
                                         </td>
                                         <td id="current-name-and-message-date" style="vertical-align: top">
                                           <p style="margin: 0">
-                                            <strong style="color:#000000;">{{Current_Message_User_Details.name}}</strong>
+                                            <strong style="color:#000000;">{{{Current_Message_User_Details.name}}}</strong>
                                           </p>
                                         </td>
                                       </tr>
@@ -413,7 +413,7 @@
                 line-height: 18px;
               ">
                                             <strong>Reply</strong> to
-                                            {{Current_Message_User_Details.name}}&apos;s comment
+                                            {{{Current_Message_User_Details.name}}}&apos;s comment
                                           </a>
                                         </td>
                                       </tr>
@@ -423,7 +423,7 @@
                                       <tr>
                                         <td style="vertical-align: top">
                                           <p style="margin: 0">
-                                            <em style="color: #191A1E">{{Current_Message_User_Details.name}}
+                                            <em style="color: #191A1E">{{{Current_Message_User_Details.name}}}
                                               {{{Current_Message_Details.message}}}</em>
                                           </p>
                                         </td>

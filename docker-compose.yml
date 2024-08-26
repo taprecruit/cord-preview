@@ -9,13 +9,15 @@ services:
     restart: always
 
   server:
-    image: cord-prod-server
-    command: bash -c 'npm i sharp yargs && ./run-server.sh'
+    image: cord-server
+    command: bash -c 'npm i sharp && ./run-server.sh'
     build:
       context: .
       dockerfile: ./ops/dockerfiles/server.Dockerfile
     environment:
       - CORD_TIER=prod
+    volumes:
+      - $HOME/.aws:/root/.aws:ro
     depends_on:
       - redis
       - predis
@@ -28,10 +30,12 @@ services:
       - '8171:8171'
 
   worker:
-    image: cord-prod-server
-    command: bash -c 'npm i sharp yargs && npm run start-asyncWorker-prod'
+    image: cord-server
+    command: bash -c 'npm i sharp && npm run start-asyncWorker-prod'
     environment:
       - CORD_TIER=prod
+    volumes:
+      - $HOME/.aws:/root/.aws:ro
     depends_on:
       - server
     restart: always

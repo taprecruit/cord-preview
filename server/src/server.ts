@@ -1,5 +1,6 @@
 import * as cluster from 'cluster';
 import { cpus } from 'os';
+import { EventEmitter } from 'events';
 import { initBoss } from 'server/src/asyncTier/pgboss.ts';
 import { serverMain } from 'server/src/public/server.ts';
 import { adminMain } from 'server/src/admin/server.ts';
@@ -28,6 +29,8 @@ export type WorkerType = 'api' | 'admin' | 'console';
 function isWorkerType(x: any): x is WorkerType {
   return x === 'api' || x === 'admin' || x === 'console';
 }
+
+EventEmitter.defaultMaxListeners = 100;
 
 // Message type for workers to signal their readiness to the master process
 const workerReadyMessage = 'cord-server:workerReady';
