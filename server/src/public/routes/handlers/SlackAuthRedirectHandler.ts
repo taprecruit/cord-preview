@@ -150,8 +150,8 @@ export default function SlackAuthRedirectHandler(
     if (match) {
       // The state looks like `[redirectHost]trueState`.
       const [_, redirectHost, trueState] = match;
-      if (/^([\w-]+\.)*cord\.com(:\d+)?$/.test(redirectHost) || configDomainRegex.test(redirectHost)) {
-        // The redirect host is in the cord.com domain. Redirect there!
+      if (/^([\w-]+\.)*cord(-test)?\.datapeople\.io(:\d+)?$/.test(redirectHost) || configDomainRegex.test(redirectHost)) {
+        // The redirect host is in the cord.datapeople.io domain. Redirect there!
         res.redirect(
           url.format({
             protocol: 'https',
@@ -172,7 +172,8 @@ export default function SlackAuthRedirectHandler(
     // trigger an error.
   }
 
-  const isDevApp = req.path.slice(-3) === 'dev';
+  console.log('req.path', req.path);
+  const isDevApp = req.path.slice(-3) === 'cord-test';
 
   const { code, error } = req.query;
 
