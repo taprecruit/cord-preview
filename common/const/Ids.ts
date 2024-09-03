@@ -9,11 +9,11 @@ export const CORD_ADMIN_PLATFORM_ORG_ID =
 export const CORD_SDK_TEST_ORG_ID = 'edda098d-6db7-4202-a5ac-ff3293b78c47';
 export const GILLIAN_TEST_SLACK_ORG_ID = 'f7ab9ab8-f5b2-41a4-a419-1b8076626d3f';
 export const KAT_TEST_SLACK_ORG_ID = '4506fadd-f8dc-4795-9b5d-d28feda39d84';
-export const CORD_SLACK_TEAM_ID = 'T012Y0TBQLW'; // radicalhqworkspace
-export const CORD_TEST_SLACK_TEAM_ID = 'T015UJY6YQK'; // radicaltestorg
+export const CORD_SLACK_TEAM_ID = 'T02FHUH0S'; // minetta
+export const CORD_TEST_SLACK_TEAM_ID = 'T02FHUH0S'; // minetta
 
-export const SLACK_APP_CLIENT_ID = 'TBD';
-export const SLACK_APP_ID = 'TBD';
+export const SLACK_APP_CLIENT_ID = '2527969026.7656344308327';
+export const SLACK_APP_ID = 'A07KAA4929M';
 export const SLACK_DEV_APP_CLIENT_ID = '2527969026.7661653659568';
 export const SLACK_ADMIN_LOGIN_APP_CLIENT_ID = '1100027398710.2437628320357';
 export const SLACK_ADMIN_LOGIN_APP_ID = 'A02CVJG9EAH';
@@ -31,7 +31,7 @@ export const CORD_SLACK_APP_IDS = [
 
 export const CORD_APPLICATION_ID = '5a076ee9-8b9e-4156-9ac4-871bdc4569ec';
 export const CORD_SDK_TEST_APPLICATION_ID =
-  'b6501bf5-46f7-4db7-9996-c42dd9f758b0';
+  '467ea1c3-ed6c-423b-9c87-85254caba8a3'; // staging
 export const CORD_SAMPLE_TOKEN_CUSTOMER_ID =
   '1c367aca-37c9-4733-8bef-e9f11a7d0f17';
 export const CORD_DEMO_APPS_TOKEN_CUSTOMER_ID =

@@ -15,9 +15,8 @@ npm i
 echo "build cord"
 CORD_BUILD_OUTPUT=dist/generic npm run build
 
-echo "copy static and sdk files"
-aws s3 cp dist/generic/external/static s3://datapeople-static/$STATIC_PATH/static --recursive
-aws s3 cp dist/generic/external/sdk s3://datapeople-static/$STATIC_PATH/sdk --recursive
+echo "copy external files to CDN"
+aws s3 cp dist/generic/external s3://datapeople-static/$STATIC_PATH --recursive
 
 echo "invalidate cloudfront cache"
 aws cloudfront create-invalidation --distribution-id=E30AHFUM5FTUOB --paths "/$STATIC_PATH/*"
