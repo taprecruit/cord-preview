@@ -172,8 +172,7 @@ export default function SlackAuthRedirectHandler(
     // trigger an error.
   }
 
-  console.log('req.path', req.path);
-  const isDevApp = req.path.slice(-3) === 'cord-test';
+  const isDevApp = req.path.slice(-3) === 'dev';
 
   const { code, error } = req.query;
 
