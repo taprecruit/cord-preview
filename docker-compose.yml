@@ -39,3 +39,6 @@ services:
     depends_on:
       - server
     restart: always
+    deploy:
+      mode: replicated
+      replicas: 4
