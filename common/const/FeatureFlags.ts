@@ -34,7 +34,7 @@ export const FeatureFlags = {
   } as FeatureFlag<'enable_plaintext_annotations', boolean>,
   ENABLE_ATTACHMENTS: {
     key: 'enable_attachments',
-    defaultValue: true,
+    defaultValue: false,
   } as FeatureFlag<'enable_attachments', boolean>,
   EMAIL_SHARING: {
     key: 'email_sharing',
