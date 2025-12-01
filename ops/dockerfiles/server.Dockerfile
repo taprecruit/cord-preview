@@ -7,6 +7,7 @@ RUN set -ex \
   && apk upgrade --no-cache \
   && apk add --no-cache \
   bash coreutils git python3 py3-pip curl postgresql16-client docker-cli zip py3-wheel aws-cli \
+  vips-dev fftw-dev build-base gcc g++ make libc-dev \
   && mkdir -p /radical /root/.aws \
   && echo -e '[default]\nregion=eu-west-2\noutput=json' >/root/.aws/config
 
@@ -44,6 +45,7 @@ ENV NODE_ENV=production
 ENV NODE_OPTIONS=--max_old_space_size=3072
 
 WORKDIR /radical
+RUN npm rebuild sharp
 
 ENTRYPOINT ["/radical/entrypoint.sh"]
 CMD ["./run-server.sh"]

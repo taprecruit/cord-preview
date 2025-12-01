@@ -10,7 +10,7 @@ services:
 
   server:
     image: cord-server
-    command: bash -c 'npm i sharp && ./run-server.sh'
+    command: ./run-server.sh
     build:
       context: .
       dockerfile: ./ops/dockerfiles/server.Dockerfile
@@ -31,7 +31,7 @@ services:
 
   worker:
     image: cord-server
-    command: bash -c 'npm i sharp && npm run start-asyncWorker-prod'
+    command: npm run start-asyncWorker-prod
     environment:
       - CORD_TIER=prod
     volumes:
