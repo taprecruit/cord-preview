@@ -432,8 +432,6 @@ function buildPullReqEnv(commitHash, prNumber) {
     SLACK_ADMIN_LOGIN_REDIRECT_HOST: 'admin.staging.cord.com',
     SLACK_APP_REDIRECT_HOST: 'api.staging.cord.com',
 
-    RESEND_API_KEY: 're_llama',
-    RESEND_WEBHOOK_SECRET: 're_webhook_llama',
     NUM_WORKERS: '0',
     SENTRY_ENVIRONMENT: undefined,
     SENTRY_RELEASE: undefined,
