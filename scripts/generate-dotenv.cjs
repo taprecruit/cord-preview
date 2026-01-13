@@ -175,7 +175,7 @@ function buildProdEnv(commitHash) {
     ADMIN_SERVER_STATIC_PATH: 'dist/prod/server/admin',
     CONSOLE_SERVER_STATIC_PATH: 'dist/prod/server/console',
     DOCS_SERVER_STATIC_PATH: 'dist/prod/docs/static',
-    RESEND_API_KEY: secrets.RESEND.api_key,
+    RESEND_API_KEY: secrets.RESEND.key,
     RESEND_WEBHOOK_SECRET: secrets.RESEND_WEBHOOK.webhook_secret,
     LAUNCHDARKLY_API_KEY: secrets.LAUNCHDARKLY.prod,
     NUM_WORKERS: 'auto',
