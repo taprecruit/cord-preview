@@ -15,23 +15,14 @@
  *         --from foo@somecustomer.com
  */
 
-// Load dotenv first to ensure all env vars are available
-import 'dotenv/config.js';
-
 import path from 'path';
 import url from 'url';
 import yargs from 'yargs';
 import { Resend } from 'resend';
+import 'dotenv/config.js';
+import env from 'server/src/config/Env.ts';
 
-// Create Resend client directly without using the full Env.ts config
-// This avoids requiring all the server environment variables
-const resendApiKey = process.env.RESEND_API_KEY;
-if (!resendApiKey) {
-  console.error('RESEND_API_KEY is required. Please set it in your .env file.');
-  process.exit(1);
-}
-
-const resend = new Resend(resendApiKey);
+const resend = new Resend(env.RESEND_API_KEY);
 
 const argv = yargs(process.argv.slice(2)).option({
   to: {

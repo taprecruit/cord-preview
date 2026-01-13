@@ -6,4 +6,3 @@ if (!env.RESEND_API_KEY) {
 }
 
 export const resend = new Resend(env.RESEND_API_KEY);
-
