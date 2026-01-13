@@ -60,7 +60,7 @@ import {
   SLACK_EVENT_PATH,
   SLACK_INTERACTIVE_EVENT_PATH,
 } from 'server/src/const.ts';
-import SendGridWebhookHandler from 'server/src/public/routes/handlers/SendGridWebhookHandler.ts';
+import ResendWebhookHandler from 'server/src/public/routes/handlers/ResendWebhookHandler.ts';
 import env from 'server/src/config/Env.ts';
 import NotificationRedirectURIHandler from 'server/src/public/routes/notification-uri-test/NotificationRedirectURIHandler.ts';
 import GetDemoAppsSignedTokenHandler from 'server/src/public/routes/demo-apps/GetDemoAppsSignedTokenHandler.ts';
@@ -202,26 +202,13 @@ const uploadedFiles = multer({
     fileSize: MAX_UPLOAD_SIZE,
   },
 });
-// Sendgrid's Inbound Parse webhook endpoint
+// Resend's inbound email webhook endpoint
+// Resend uses signature verification via the resend-signature header
+// Resend sends webhook events as JSON (not multipart/form-data)
 MainRouter.post(
-  '/sendgrid',
-
-  // Only SendGrid should be able to post to this endpoint
-  basicAuth({
-    users: {
-      [env.SENDGRID_INBOUND_WEBHOOK_USER]:
-        env.SENDGRID_INBOUND_WEBHOOK_PASSWORD,
-    },
-  }),
-
-  // parse multipart/form-data
-  // Allow all files through to not throw an error
-  // and drop replies with attachments.
-  // (TODO) Properly implement support for attachments by
-  // uploading files to s3 and attaching to message.
-  ignoreUploadedFiles.any(),
+  '/resend',
   // eslint-disable-next-line @typescript-eslint/no-misused-promises -- Disabling for pre-existing problems. Please do not copy this comment, and consider fixing this one!
-  SendGridWebhookHandler,
+  ResendWebhookHandler,
 );
 
 MainRouter.get(

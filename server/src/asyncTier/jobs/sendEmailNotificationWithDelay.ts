@@ -12,7 +12,6 @@ import { contextWithSession } from 'server/src/RequestContext.ts';
 import type { CustomEmailTemplate } from 'server/src/entity/application/ApplicationEntity.ts';
 import type { ThreadDetails } from 'server/src/util/email.ts';
 import type { ActionIcon } from 'server/src/email/index.ts';
-import { getTemplateIDForNotification } from 'server/src/email/util.ts';
 import type { NotificationType } from 'server/src/entity/notification/NotificationEntity.ts';
 
 export default new AsyncTierJobDefinition(
@@ -107,16 +106,6 @@ export async function sendEmailNotification(
     version: null,
     customerID: context.application?.customerID,
   };
-  // Since we only have resolve action type for thread_action notifications we can default
-  // to thread_resolve template. In the future if we have more types of thread_action notifications,
-  // we should expand the props on getTemplateIDForNotification to handle this.
-  const templateId = await getTemplateIDForNotification({
-    notificationActionType:
-      data.notificationType === 'thread_action' ? 'thread_resolve' : 'mention',
-    context,
-    featureFlagUser,
-  });
-
   let canSkipSending = false;
   if (
     // we always want to send self-mentions
@@ -164,7 +153,7 @@ export async function sendEmailNotification(
     partnerDetails: data.partnerDetails,
     threadDetails: data.threadDetails,
     emailNotification,
-    templateId,
     notificationType: data.notificationType,
+    inviteURL: data.notificationURL, // Use notificationURL as inviteURL if available
   });
 }

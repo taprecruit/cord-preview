@@ -214,26 +214,6 @@ define(() => {
   }
 });
 
-// cord.fyi setup for SendGrid
-define(() => {
-  const zone = cordComZones().get('cord.fyi');
-  if (zone) {
-    // Custom CNAME records for verification
-    new Route53.CnameRecord(zone, `sendgrid-em5842`, {
-      zone,
-      recordName: 'em5842',
-      domainName: 'u16847044.wl045.sendgrid.net',
-    });
-
-    // Replies to cord.fyi emails should go to SendGrid
-    // https://docs.sendgrid.com/for-developers/parsing-email/setting-up-the-inbound-parse-webhook#set-up-an-mx-record
-    new Route53.MxRecord(zone, 'sendgrid-mx', {
-      zone,
-      values: [{ priority: 10, hostName: 'mx.sendgrid.net.' }],
-    });
-  }
-});
-
 // local.cord.com hostname, pointing to localhost (for local development)
 define(() => {
   const zone = cordComZones().get(Config.PRIMARY_DOMAIN_NAME);

@@ -76,7 +76,7 @@ const MAX_FILE_NAME_LENGTH = 50;
 // potentially the previous message and author, and if the thread has more
 // than 3 messages we also return the first message and author of the thread,
 // and a count of how many messages are in between.
-// This data is sent to sendgrid ot render.
+// This data is sent to Resend to render.
 export async function getThreadDetails({
   threadID,
   currentMessage,

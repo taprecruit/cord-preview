@@ -25,24 +25,20 @@ define(() =>
     },
   ));
 
-// Secret used for authenticating Sendgrid's Inbound Parse webhook requests
+// Secret used for authenticating Resend's inbound email webhook requests
 define(() =>
-  new SecretsManager.Secret(
-    radicalStack(),
-    Config.SENDGRID_INBOUND_WEBHOOK_SECRET,
-    {
-      description:
-        "Secret used for authenticating Sendgrid's Inbound Parse webhook requests",
-      secretName: Config.SENDGRID_INBOUND_WEBHOOK_SECRET_KEY_REF_NAME,
-      generateSecretString: {
-        secretStringTemplate: JSON.stringify({}),
-        generateStringKey: 'webhook_secret',
-        excludePunctuation: true,
-        includeSpace: false,
-      },
-      removalPolicy: RemovalPolicy.RETAIN,
+  new SecretsManager.Secret(radicalStack(), Config.RESEND_WEBHOOK_SECRET, {
+    description:
+      "Secret used for authenticating Resend's inbound email webhook requests",
+    secretName: Config.RESEND_WEBHOOK_SECRET_KEY_REF_NAME,
+    generateSecretString: {
+      secretStringTemplate: JSON.stringify({}),
+      generateStringKey: 'webhook_secret',
+      excludePunctuation: true,
+      includeSpace: false,
     },
-  ));
+    removalPolicy: RemovalPolicy.RETAIN,
+  }));
 
 // JSON webtoken secret for admin tokens
 define(() =>
@@ -225,9 +221,9 @@ const API_SECRETS: ApiSecret[] = [
     key: 'client_secret',
   },
   {
-    name: 'sendgrid',
-    description: 'Credentials for Sendgrid API',
-    key: 'key',
+    name: 'resend',
+    description: 'Credentials for Resend API',
+    key: 'api_key',
   },
   {
     name: 'launchdarkly_api',

@@ -8,10 +8,12 @@ test('inject id into Cord email address', () => {
   expect(
     getReplyToEmailAddress(
       anonymousLogger(),
-      'Cord <cord@cord.fyi>',
+      'Datapeople <notifications@share.datapeople.io>',
       '48efa35f-fbe0-44d7-97cb-58bfb018f0ab',
     ),
-  ).toEqual('Cord <cord-48efa35f-fbe0-44d7-97cb-58bfb018f0ab@cord.fyi>');
+  ).toEqual(
+    'Datapeople <commenting-48efa35f-fbe0-44d7-97cb-58bfb018f0ab@share.datapeople.io>',
+  );
 });
 
 test('inject id into Typeform email address', () => {
@@ -22,7 +24,7 @@ test('inject id into Typeform email address', () => {
       '48efa35f-fbe0-44d7-97cb-58bfb018f0ab',
     ),
   ).toEqual(
-    'Typeform <typeform-notifications-48efa35f-fbe0-44d7-97cb-58bfb018f0ab@cord.fyi>',
+    'Typeform <commenting-48efa35f-fbe0-44d7-97cb-58bfb018f0ab@share.datapeople.io>',
   );
 });
 
@@ -33,7 +35,9 @@ test('inject id into nameless email address', () => {
       'someprovider@cord.fyi',
       '48efa35f-fbe0-44d7-97cb-58bfb018f0ab',
     ),
-  ).toEqual('someprovider-48efa35f-fbe0-44d7-97cb-58bfb018f0ab@cord.fyi');
+  ).toEqual(
+    'commenting-48efa35f-fbe0-44d7-97cb-58bfb018f0ab@share.datapeople.io',
+  );
 });
 
 test('inject id into white-label email address', () => {
@@ -43,12 +47,14 @@ test('inject id into white-label email address', () => {
       'hello@example.com',
       '48efa35f-fbe0-44d7-97cb-58bfb018f0ab',
     ),
-  ).toEqual('hello-48efa35f-fbe0-44d7-97cb-58bfb018f0ab@cord.fyi');
+  ).toEqual(
+    'commenting-48efa35f-fbe0-44d7-97cb-58bfb018f0ab@share.datapeople.io',
+  );
 });
 
 test('extract id from email address', () => {
   const testAddresses = [
-    'Cord <cord@cord.fyi>',
+    'Datapeople <notifications@share.datapeople.io>',
     'Typeform <typeform-notifications@cord.fyi>',
     'someprovider@cord.fyi',
   ];
@@ -66,7 +72,7 @@ test('extract id from email address', () => {
 
 test('dont extract id from email address that dont have it', () => {
   const testAddresses = [
-    'Cord <cord@cord.fyi>',
+    'Datapeople <notifications@share.datapeople.io>',
     'Typeform <typeform-notifications@cord.fyi>',
     'someprovider@cord.fyi',
     'abc-notUUID-it-just-has-the-right-length@cord.fyi',

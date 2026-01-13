@@ -43,6 +43,7 @@
     "repl": "./build/index.mjs --mode=development --target=repl && node ./dist/repl/index.js",
     "generate-docs-embeddings": "./build/index.mjs --mode=development --target=scripts/docs-generate-search-data.ts && ./dist/scripts/docs-generate-search-data.js",
     "extract-demo-apps-to-sandpack-object": "./build/index.mjs --mode=development --target=scripts/extract-demo-apps-to-sandpack-file-object.ts && ./dist/scripts/extract-demo-apps-to-sandpack-file-object.js",
+    "email:dev": "email dev --dir server/src/email/templates",
     "prepare": "[ \"$(git config core.hooksPath)\" = \".githooks\" ] && git config --unset core.hooksPath ; ln -s ../../.githooks/prepare-commit-msg .git/hooks/ > /dev/null 2>&1 || true"
   },
   "jest": {
@@ -110,7 +111,9 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@segment/analytics-node": "^2.0.0",
-    "@sendgrid/mail": "^8.1.0",
+    "resend": "^6.4.2",
+    "@react-email/components": "^0.5.7",
+    "@react-email/render": "^1.4.0",
     "@sentry/browser": "^7.57.0",
     "@sentry/node": "^7.59.3",
     "@sentry/react": "^7.57.0",
@@ -230,6 +233,7 @@
     "slate-react": "^0.100.1",
     "stripe": "^15.4.0",
     "subscriptions-transport-ws": "^0.9.19",
+    "svix": "^1.38.0",
     "supertest": "^6.1.6",
     "typed-emitter": "^1.3.1",
     "ua-parser-js": "^1.0.33",
@@ -247,6 +251,7 @@
   },
   "devDependencies": {
     "@cspell/eslint-plugin": "^6.31.1",
+    "aws-cdk-lib": "^2.80.0",
     "@luckycatfactory/esbuild-graphql-loader": "^3.7.0",
     "@microsoft/tsdoc": "^0.14.2",
     "@sentry/cli": "^2.10.0",
@@ -310,6 +315,8 @@
     "nodemon": "^3.0.1",
     "pg-formatter": "^1.2.0",
     "prettier": "^3.0.3",
+    "@react-email/preview-server": "^5.0.6",
+    "react-email": "^5.0.6",
     "schema-dts": "^1.1.2",
     "ts-prune": "latest",
     "typescript": "~5.1.6",

@@ -3,20 +3,6 @@ import type { MessageNode, MessageTextNode } from '@cord-sdk/types';
 import { MessageNodeType } from '@cord-sdk/types';
 import { Colors } from 'common/const/Colors.ts';
 import { Sizes } from 'common/const/Sizes.ts';
-import type { RequestContext } from 'server/src/RequestContext.ts';
-import {
-  DEFAULT_MENTION_NOTIFICATION_V2_TEMPLATE_ID,
-  DEFAULT_SHARE_TO_EMAIL_TEMPLATE_ID,
-  DEFAULT_THREAD_RESOLVE_TEMPLATE_ID,
-  MENTION_NOTIFICATION_NO_POWERED_BY_CORD_TEMPLATE_ID,
-  SHARE_TO_EMAIL_NO_POWERED_BY_CORD_TEMPLATE_ID,
-  THREAD_RESOLVE_NO_POWERED_BY_CORD_TEMPLATE_ID,
-} from 'server/src/email/index.ts';
-import type { FlagsUser } from 'server/src/featureflags/index.ts';
-import {
-  getTypedFeatureFlagValue,
-  FeatureFlags,
-} from 'server/src/featureflags/index.ts';
 
 function textNodeToHtml(node: MessageTextNode): string {
   let before = '';
@@ -124,87 +110,4 @@ export function convertNodeListToEmailHtml(nodes: MessageNode[]) {
   }
 
   return html;
-}
-
-// This maps to the three different notification template types we have for
-// each custom variation in launch darkly
-type NotificationActionType = 'thread_resolve' | 'share_to_email' | 'mention';
-// To decide which email template to use look at feature flag and customer
-// pricing tier; pro and scale should never show 'Powered by Cord'.
-export async function getTemplateIDForNotification({
-  notificationActionType,
-  context,
-  featureFlagUser,
-}: {
-  notificationActionType: NotificationActionType;
-  context: RequestContext;
-  featureFlagUser: FlagsUser;
-}): Promise<string> {
-  const customer = context.application?.customerID
-    ? await context.loaders.customerLoader.load(context.application.customerID)
-    : null;
-  const tier = customer?.pricingTier;
-
-  // Grab the template ID in LD for the current user (some users have some custom rules)
-  const featureFlagTemplateIDs = await getTypedFeatureFlagValue(
-    FeatureFlags.EMAIL_NOTIFICATION_TEMPLATE_ID,
-    featureFlagUser,
-  );
-  const featureFlagTemplateID = featureFlagTemplateIDs[notificationActionType];
-  const defaultTemplateID = getDefaultTemplateIDForNotificationType(
-    notificationActionType,
-  );
-
-  // if a templateID is set distinct from the default, use it
-  if (featureFlagTemplateID !== defaultTemplateID) {
-    return featureFlagTemplateID;
-  }
-
-  // If the customer is on a paying tier, use the one without 'Powered by Cord' section
-  if (tier === 'pro' || tier === 'scale') {
-    return getPayingCustomerTemplateIDForNotificationType(
-      notificationActionType,
-    );
-  }
-
-  return defaultTemplateID;
-}
-
-function getDefaultTemplateIDForNotificationType(
-  notificationActionType: NotificationActionType,
-) {
-  switch (notificationActionType) {
-    case 'mention':
-      return DEFAULT_MENTION_NOTIFICATION_V2_TEMPLATE_ID;
-    case 'thread_resolve':
-      return DEFAULT_THREAD_RESOLVE_TEMPLATE_ID;
-    case 'share_to_email':
-      return DEFAULT_SHARE_TO_EMAIL_TEMPLATE_ID;
-    default: {
-      const _: never = notificationActionType;
-      throw new Error(
-        'Could not find a template ID for notification action type: ' +
-          notificationActionType,
-      );
-    }
-  }
-}
-function getPayingCustomerTemplateIDForNotificationType(
-  notificationActionType: NotificationActionType,
-) {
-  switch (notificationActionType) {
-    case 'mention':
-      return MENTION_NOTIFICATION_NO_POWERED_BY_CORD_TEMPLATE_ID;
-    case 'thread_resolve':
-      return THREAD_RESOLVE_NO_POWERED_BY_CORD_TEMPLATE_ID;
-    case 'share_to_email':
-      return SHARE_TO_EMAIL_NO_POWERED_BY_CORD_TEMPLATE_ID;
-    default: {
-      const _: never = notificationActionType;
-      throw new Error(
-        'Could not find paying customer template ID for notification action type: ' +
-          notificationActionType,
-      );
-    }
-  }
 }
