@@ -223,7 +223,7 @@ const API_SECRETS: ApiSecret[] = [
   {
     name: 'resend',
     description: 'Credentials for Resend API',
-    key: 'api_key',
+    key: 'key',
   },
   {
     name: 'launchdarkly_api',
