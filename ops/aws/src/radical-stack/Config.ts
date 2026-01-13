@@ -82,11 +82,6 @@ export const DOMAIN_KEYS = {
     wwmfgpjwizpjhbulmahzlx65e22z6oko:
       'CNAME:wwmfgpjwizpjhbulmahzlx65e22z6oko.dkim.amazonses.com.',
   },
-  'cord.fyi': {
-    // s1, s2 = Sendgrid (product notifications)
-    s1: 'CNAME:s1.domainkey.u16847044.wl045.sendgrid.net',
-    s2: 'CNAME:s2.domainkey.u16847044.wl045.sendgrid.net',
-  },
 };
 
 type SpfType = Record<string, string | Record<string, string> | undefined> & {
@@ -97,14 +92,12 @@ type SpfType = Record<string, string | Record<string, string> | undefined> & {
 export const SPF_RECORDS: SpfType = {
   // _spf.google.com = Google (our email)
   // amazonses.com = Loops (marketing)
-  // sendgrid.net = Sendgrid (product notifications)
   default: 'v=spf1 include:_spf.google.com ~all',
   'cord.com': 'v=spf1 include:_spf.google.com ~all',
   'cord.so': {
     '@': 'v=spf1 include:_spf.google.com ~all',
     envelope: 'v=spf1 include:amazonses.com ~all',
   },
-  'cord.fyi': 'v=spf1 include:sendgrid.net -all',
 };
 
 // CI/CD values
@@ -115,9 +108,8 @@ export const SLACK_OAUTH_STATE_SIGNING_SECRET = 'SlackOauthStateSigningSecret';
 export const SLACK_OAUTH_STATE_SIGNING_KEY_REF_NAME =
   'SlackOauthStateSigningSecretKey';
 
-export const SENDGRID_INBOUND_WEBHOOK_SECRET = 'SendgridInboundWebhookSecret';
-export const SENDGRID_INBOUND_WEBHOOK_SECRET_KEY_REF_NAME =
-  'SendgridInboundWebhookSecretKey';
+export const RESEND_WEBHOOK_SECRET = 'ResendWebhookSecret';
+export const RESEND_WEBHOOK_SECRET_KEY_REF_NAME = 'ResendWebhookSecretKey';
 
 export const CORD_COM_WILDCARD_CERTIFICATE_US_EAST_1 =
   'arn:aws:acm:us-east-1:869934154475:certificate/179f1ac1-4c87-429c-87fd-e3b9a2af4f0b';

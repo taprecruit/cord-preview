@@ -33,8 +33,8 @@ const secretIDs = {
   LINEAR: 'linear_api',
   TRELLO: 'trello_api',
   MONDAY: 'monday_api',
-  SENDGRID: 'sendgrid',
-  SENDGRID_INBOUND_WEBHOOK: 'SendgridInboundWebhookSecretKey',
+  RESEND: 'resend',
+  RESEND_WEBHOOK: 'ResendWebhookSecretKey',
   PLATFORM_SECRETS: 'platform_secrets_encryption_key',
   FILE_PROXY_SIGNING_SECRET: 'file_proxy_signing_secret',
   EMAIL_LINKS_TOKEN: 'email_links_token_secret',
@@ -175,10 +175,8 @@ function buildProdEnv(commitHash) {
     ADMIN_SERVER_STATIC_PATH: 'dist/prod/server/admin',
     CONSOLE_SERVER_STATIC_PATH: 'dist/prod/server/console',
     DOCS_SERVER_STATIC_PATH: 'dist/prod/docs/static',
-    SENDGRID_API_KEY: secrets.SENDGRID.key,
-    SENDGRID_INBOUND_WEBHOOK_USER: 'cord',
-    SENDGRID_INBOUND_WEBHOOK_PASSWORD:
-      secrets.SENDGRID_INBOUND_WEBHOOK.webhook_secret,
+    RESEND_API_KEY: secrets.RESEND.api_key,
+    RESEND_WEBHOOK_SECRET: secrets.RESEND_WEBHOOK.webhook_secret,
     LAUNCHDARKLY_API_KEY: secrets.LAUNCHDARKLY.prod,
     NUM_WORKERS: 'auto',
     PLATFORM_SECRETS_ENCRYPTION_KEY: secrets.PLATFORM_SECRETS.encryption_key,
@@ -350,7 +348,8 @@ function buildDevEnv(commitHash) {
     // LAUNCHDARKLY_API_KEY: secrets.LAUNCHDARKLY.test,
     LAUNCHDARKLY_API_KEY: undefined,
     // NOTE(flooey): Remove if secrets are available
-    SENDGRID_API_KEY: 'SG.llama',
+    RESEND_API_KEY: 're_llama',
+    RESEND_WEBHOOK_SECRET: 're_webhook_llama',
     NUM_WORKERS: '0',
     PLATFORM_SECRETS_ENCRYPTION_KEY: '12345678901234567890123456789012',
     FILE_PROXY_SIGNING_SECRET_KEY: '12345678901234567890123456789012',
@@ -378,7 +377,8 @@ function buildTestEnv(commitHash) {
     PLATFORM_SECRETS_ENCRYPTION_KEY: '12345678901234567890123456789012',
     FILE_PROXY_SIGNING_SECRET_KEY: '12345678901234567890123456789012',
     SENTRY_ENVIRONMENT: undefined,
-    SENDGRID_API_KEY: 'SG.llama', // Start with "SG." instead of "!!SECRET" to shut up logspew.
+    RESEND_API_KEY: 're_llama',
+    RESEND_WEBHOOK_SECRET: 're_webhook_llama',
   };
 }
 

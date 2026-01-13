@@ -26,7 +26,6 @@ import type { Resolvers } from 'server/src/schema/resolverTypes.ts';
 import { getThreadDetails } from 'server/src/util/email.ts';
 import { sendErrors } from 'server/src/public/mutations/util/sendErrors.ts';
 import { ApiCallerError } from 'server/src/public/routes/platform/util.ts';
-import { getTemplateIDForNotification } from 'server/src/email/util.ts';
 
 export const shareThreadToEmailResolver: Resolvers['Mutation']['shareThreadToEmail'] =
   sendErrors(async (_, args, originalContext) => {
@@ -249,12 +248,6 @@ export const shareThreadToEmailResolver: Resolvers['Mutation']['shareThreadToEma
         threadOrgID: thread.orgID,
       });
     }
-    const templateID = await getTemplateIDForNotification({
-      notificationActionType: 'share_to_email',
-      context,
-      featureFlagUser,
-    });
-
     // TODO: should there be an unsubscribe URL?
     const success = await sendShareThreadToEmailEmail(
       context,
@@ -264,7 +257,7 @@ export const shareThreadToEmailResolver: Resolvers['Mutation']['shareThreadToEma
       partnerDetails,
       threadDetails,
       emailNotification,
-      templateID,
+      notificationURL, // Use notificationURL as inviteURL
     );
 
     return { success, failureDetails: null };
