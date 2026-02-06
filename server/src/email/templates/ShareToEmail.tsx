@@ -413,7 +413,7 @@ export const ShareToEmail = ({
             </Section>
           )}
         </Container>
-        <EmailFooter showLogo={false} />
+        <EmailFooter />
       </Body>
     </Html>
   );

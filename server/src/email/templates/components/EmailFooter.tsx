@@ -1,26 +1,16 @@
-import { Container, Img, Link, Section, Text } from '@react-email/components';
+import { Container, Section, Text } from '@react-email/components';
 import React from 'react';
 import { emailStyles } from 'server/src/email/templates/components/EmailStyles.tsx';
 
 const DEFAULT_ADDRESS =
   '68 Harrison Ave Ste 605 PMB 96140 Boston, MA 02111-1929';
 
-const logoImgProps = {
-  src: 'https://static.datapeople.io/logo-orange-with-payscale.png',
-  alt: 'Datapeople',
-};
-
 export interface EmailFooterProps {
   /** Company address. Defaults to Datapeople HQ. */
   address?: string;
-  /** When true, show the Datapeople logo above the address in the footer. Use for templates that have no logo in the header. */
-  showLogo?: boolean;
 }
 
-export const EmailFooter = ({
-  address = DEFAULT_ADDRESS,
-  showLogo = false,
-}: EmailFooterProps) => {
+export const EmailFooter = ({ address = DEFAULT_ADDRESS }: EmailFooterProps) => {
   return (
     <Container
       style={{
@@ -30,22 +20,6 @@ export const EmailFooter = ({
       }}
     >
       <Section style={{ textAlign: 'center' }}>
-        {showLogo && (
-          <Link href="https://app.datapeople.io/">
-            <Img
-              {...logoImgProps}
-              width={91}
-              height={31}
-              style={{
-                display: 'block',
-                margin: '0 auto 20px',
-                maxWidth: 91,
-                maxHeight: 31,
-                objectFit: 'contain',
-              }}
-            />
-          </Link>
-        )}
         <Text
           style={{
             fontSize: 12,

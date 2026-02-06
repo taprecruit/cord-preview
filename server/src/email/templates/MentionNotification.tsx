@@ -465,7 +465,7 @@ export const MentionNotification = ({
             </Section>
           )}
         </Container>
-        <EmailFooter showLogo={false} />
+        <EmailFooter />
       </Body>
     </Html>
   );

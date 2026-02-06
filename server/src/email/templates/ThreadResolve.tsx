@@ -202,7 +202,7 @@ export const ThreadResolve = ({
             </Section>
           )}
         </Container>
-        <EmailFooter showLogo={false} />
+        <EmailFooter />
       </Body>
     </Html>
   );
