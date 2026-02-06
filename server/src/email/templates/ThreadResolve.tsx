@@ -12,6 +12,7 @@ import {
 import React from 'react';
 import { MessageBlock } from 'server/src/email/templates/components/MessageBlock.tsx';
 import { Divider } from 'server/src/email/templates/components/Divider.tsx';
+import { EmailFooter } from 'server/src/email/templates/components/EmailFooter.tsx';
 import { emailStyles } from 'server/src/email/templates/components/EmailStyles.tsx';
 
 interface UserDetails {
@@ -62,7 +63,7 @@ export const ThreadResolve = ({
   imageWidth = '140',
   showPoweredBy = true,
 }: ThreadResolveProps) => {
-  const defaultLogoUrl = 'https://static.datapeople.io/logo-orange.png';
+  const defaultLogoUrl = 'https://static.datapeople.io/logo-orange-with-payscale.png';
 
   return (
     <Html>
@@ -201,6 +202,7 @@ export const ThreadResolve = ({
             </Section>
           )}
         </Container>
+        <EmailFooter />
       </Body>
     </Html>
   );

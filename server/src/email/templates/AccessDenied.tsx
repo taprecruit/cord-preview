@@ -9,6 +9,7 @@ import {
   Preview,
 } from '@react-email/components';
 import React from 'react';
+import { EmailFooter } from 'server/src/email/templates/components/EmailFooter.tsx';
 import { emailStyles } from 'server/src/email/templates/components/EmailStyles.tsx';
 
 interface AccessDeniedProps {
@@ -35,6 +36,7 @@ export const AccessDenied = ({
             </Button>
           </Section>
         </Container>
+        <EmailFooter />
       </Body>
     </Html>
   );
