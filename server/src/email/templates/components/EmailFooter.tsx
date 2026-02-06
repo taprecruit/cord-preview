@@ -2,15 +2,7 @@ import { Container, Section, Text } from '@react-email/components';
 import React from 'react';
 import { emailStyles } from 'server/src/email/templates/components/EmailStyles.tsx';
 
-const DEFAULT_ADDRESS =
-  '68 Harrison Ave Ste 605 PMB 96140 Boston, MA 02111-1929';
-
-export interface EmailFooterProps {
-  /** Company address. Defaults to Datapeople HQ. */
-  address?: string;
-}
-
-export const EmailFooter = ({ address = DEFAULT_ADDRESS }: EmailFooterProps) => {
+export const EmailFooter = () => {
   return (
     <Container
       style={{
@@ -29,7 +21,8 @@ export const EmailFooter = ({ address = DEFAULT_ADDRESS }: EmailFooterProps) => 
             textAlign: 'center',
           }}
         >
-          Datapeople, a Payscale company, {address}
+          Datapeople, a Payscale company, 68 Harrison Ave Ste 605 PMB 96140
+          Boston, MA 02111-1929
         </Text>
       </Section>
     </Container>
