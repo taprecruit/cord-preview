@@ -13,6 +13,7 @@ import {
 import React from 'react';
 import { MessageBlock } from 'server/src/email/templates/components/MessageBlock.tsx';
 import { Divider } from 'server/src/email/templates/components/Divider.tsx';
+import { EmailFooter } from 'server/src/email/templates/components/EmailFooter.tsx';
 import { emailStyles } from 'server/src/email/templates/components/EmailStyles.tsx';
 
 interface UserDetails {
@@ -77,7 +78,8 @@ export const MentionNotification = ({
   const actionIconUrl = `https://static.datapeople.io/cord/static/email/${actionIcon}-circle.png`;
   const replyIconUrl =
     'https://static.datapeople.io/cord/static/email/reply-circle.png';
-  const defaultLogoUrl = 'https://static.datapeople.io/logo-orange.png';
+  const defaultLogoUrl =
+    'https://static.datapeople.io/logo-orange-with-payscale.png';
 
   return (
     <Html>
@@ -463,6 +465,7 @@ export const MentionNotification = ({
             </Section>
           )}
         </Container>
+        <EmailFooter showLogo={false} />
       </Body>
     </Html>
   );
