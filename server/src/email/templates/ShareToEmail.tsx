@@ -73,7 +73,7 @@ export const ShareToEmail = ({
 }: ShareToEmailProps) => {
   const mentionIconUrl =
     'https://static.datapeople.io/cord/static/email/mention-circle.png';
-  const defaultLogoUrl = 'https://static.datapeople.io/logo-orange-with-payscale.png';
+  const defaultLogoUrl = 'https://static.datapeople.io/jobnav-logo-green.png';
 
   return (
     <Html>
@@ -101,7 +101,7 @@ export const ShareToEmail = ({
               <Link href="https://app.datapeople.io">
                 <Img
                   src={defaultLogoUrl}
-                  alt="Datapeople"
+                  alt="Payscale | JobNav"
                   height={imageHeight}
                   width={imageWidth}
                   style={{

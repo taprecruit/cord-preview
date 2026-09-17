@@ -3,7 +3,8 @@
 export const emailStyles = {
   // Color palette matching mailer
   colors: {
-    primary: '#4022A1',
+    primary: '#008080',
+    primaryDark: '#006F6A',
     textLight: '#AAAAAA',
     secondary: '#FF6A5B',
     offwhite: '#FAFAFA',
@@ -50,7 +51,7 @@ export const emailStyles = {
   },
   button: {
     textDecoration: 'none',
-    background: '#FF6A5B', // secondary color from mailer
+    background: '#008080', // primary teal from mailer
     border: 'none',
     color: '#ffffff',
     borderRadius: '8px', // rounded-lg
@@ -62,7 +63,7 @@ export const emailStyles = {
     cursor: 'pointer',
   },
   link: {
-    color: '#4022A1', // primary color from mailer
+    color: '#008080', // primary color from mailer
     textDecoration: 'underline',
   },
   text: {

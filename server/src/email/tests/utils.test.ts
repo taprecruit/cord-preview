@@ -8,11 +8,11 @@ test('inject id into Cord email address', () => {
   expect(
     getReplyToEmailAddress(
       anonymousLogger(),
-      'Datapeople <notifications@share.datapeople.io>',
+      'JobNav <notifications@share.datapeople.io>',
       '48efa35f-fbe0-44d7-97cb-58bfb018f0ab',
     ),
   ).toEqual(
-    'Datapeople <commenting-48efa35f-fbe0-44d7-97cb-58bfb018f0ab@share.datapeople.io>',
+    'JobNav <commenting-48efa35f-fbe0-44d7-97cb-58bfb018f0ab@share.datapeople.io>',
   );
 });
 
@@ -54,7 +54,7 @@ test('inject id into white-label email address', () => {
 
 test('extract id from email address', () => {
   const testAddresses = [
-    'Datapeople <notifications@share.datapeople.io>',
+    'JobNav <notifications@share.datapeople.io>',
     'Typeform <typeform-notifications@cord.fyi>',
     'someprovider@cord.fyi',
   ];
@@ -72,7 +72,7 @@ test('extract id from email address', () => {
 
 test('dont extract id from email address that dont have it', () => {
   const testAddresses = [
-    'Datapeople <notifications@share.datapeople.io>',
+    'JobNav <notifications@share.datapeople.io>',
     'Typeform <typeform-notifications@cord.fyi>',
     'someprovider@cord.fyi',
     'abc-notUUID-it-just-has-the-right-length@cord.fyi',

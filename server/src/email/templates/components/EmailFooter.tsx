@@ -21,8 +21,8 @@ export const EmailFooter = () => {
             textAlign: 'center',
           }}
         >
-          Datapeople, a Payscale company, 68 Harrison Ave Ste 605 PMB 96140
-          Boston, MA 02111-1929
+          Payscale, Inc., 68 Harrison Ave Ste 605 PMB 96140 Boston, MA
+          02111-1929
         </Text>
       </Section>
     </Container>

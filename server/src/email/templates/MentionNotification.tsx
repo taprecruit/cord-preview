@@ -78,8 +78,7 @@ export const MentionNotification = ({
   const actionIconUrl = `https://static.datapeople.io/cord/static/email/${actionIcon}-circle.png`;
   const replyIconUrl =
     'https://static.datapeople.io/cord/static/email/reply-circle.png';
-  const defaultLogoUrl =
-    'https://static.datapeople.io/logo-orange-with-payscale.png';
+  const defaultLogoUrl = 'https://static.datapeople.io/jobnav-logo-green.png';
 
   return (
     <Html>
@@ -109,7 +108,7 @@ export const MentionNotification = ({
               <Link href="https://app.datapeople.io/">
                 <Img
                   src={defaultLogoUrl}
-                  alt="Datapeople"
+                  alt="Payscale | JobNav"
                   height={imageHeight}
                   width={imageWidth}
                   style={{
@@ -434,7 +433,7 @@ export const MentionNotification = ({
                     }}
                   >
                     Reply to this email to reply directly in{' '}
-                    {partnerName || 'Datapeople'}
+                    {partnerName || 'JobNav'}
                   </Text>
                 </td>
               </tr>

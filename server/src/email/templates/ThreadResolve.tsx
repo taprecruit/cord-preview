@@ -63,7 +63,7 @@ export const ThreadResolve = ({
   imageWidth = '140',
   showPoweredBy = true,
 }: ThreadResolveProps) => {
-  const defaultLogoUrl = 'https://static.datapeople.io/logo-orange-with-payscale.png';
+  const defaultLogoUrl = 'https://static.datapeople.io/jobnav-logo-green.png';
 
   return (
     <Html>
@@ -93,7 +93,7 @@ export const ThreadResolve = ({
               <Link href="https://app.datapeople.io/">
                 <Img
                   src={defaultLogoUrl}
-                  alt="Datapeople"
+                  alt="Payscale | JobNav"
                   height={imageHeight}
                   width={imageWidth}
                   style={{
