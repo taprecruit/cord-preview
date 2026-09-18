@@ -166,13 +166,11 @@ export async function sendActionEmailNotification({
 
   const { error } = await resend.emails.send({
     from:
-      partnerDetails?.sender ??
-      'Datapeople <notifications@share.datapeople.io>',
+      partnerDetails?.sender ?? 'JobNav <notifications@share.datapeople.io>',
     to: recipientEmail,
     replyTo: getReplyToEmailAddress(
       context.logger,
-      partnerDetails?.sender ??
-        `Datapeople <notifications@share.datapeople.io>`,
+      partnerDetails?.sender ?? 'JobNav <notifications@share.datapeople.io>',
       emailNotification.id,
     ),
     subject,
@@ -191,7 +189,7 @@ export async function sendActionEmailNotification({
         error: error.message || error,
         from_address:
           partnerDetails?.sender ??
-          'Datapeople <notifications@share.datapeople.io>',
+          'JobNav <notifications@share.datapeople.io>',
         to_address: recipientEmail,
       },
     );
@@ -205,8 +203,7 @@ export async function sendActionEmailNotification({
     logLevel: LogLevel.DEBUG,
     payload: {
       from:
-        partnerDetails?.sender ??
-        'Datapeople <notifications@share.datapeople.io>',
+        partnerDetails?.sender ?? 'JobNav <notifications@share.datapeople.io>',
       to: recipientEmail,
     },
   });
@@ -267,18 +264,17 @@ export async function sendShareThreadToEmailEmail(
 
   const { error } = await resend.emails.send({
     from:
-      partnerDetails?.sender ??
-      'Datapeople <notifications@share.datapeople.io>',
+      partnerDetails?.sender ?? 'JobNav <notifications@share.datapeople.io>',
     to: recipientEmail,
     replyTo: emailNotification
       ? getReplyToEmailAddress(
           context.logger,
           partnerDetails?.sender ??
-            `Datapeople <notifications@share.datapeople.io>`,
+            'JobNav <notifications@share.datapeople.io>',
           emailNotification.id,
         )
       : (partnerDetails?.sender ??
-        `Datapeople <notifications@share.datapeople.io>`),
+        'JobNav <notifications@share.datapeople.io>'),
     subject,
     html,
   });
@@ -300,8 +296,7 @@ export async function sendShareThreadToEmailEmail(
     logLevel: LogLevel.DEBUG,
     payload: {
       from:
-        partnerDetails?.sender ??
-        'Datapeople <notifications@share.datapeople.io>',
+        partnerDetails?.sender ?? 'JobNav <notifications@share.datapeople.io>',
       to: recipientEmail,
     },
   });
@@ -383,7 +378,7 @@ export async function sendEmailInviteConsoleUser(
   const subject = `${inviterName} has invited you to join ${customer.name}'s Cord console account`;
 
   const { error } = await resend.emails.send({
-    from: 'Datapeople <notifications@share.datapeople.io>',
+    from: 'JobNav <notifications@share.datapeople.io>',
     to: recipientEmail,
     subject,
     html,
@@ -402,7 +397,7 @@ export async function sendEmailInviteConsoleUser(
     type: 'email-invite-console-user',
     logLevel: LogLevel.DEBUG,
     payload: {
-      from: 'Datapeople <notifications@share.datapeople.io>',
+      from: 'JobNav <notifications@share.datapeople.io>',
       to: recipientEmail,
     },
   });
@@ -429,7 +424,7 @@ export async function sendAccessGrantedEmailToConsoleUser(
   const subject = `Access granted to ${customer.name} in Cord console`;
 
   const { error } = await resend.emails.send({
-    from: 'Datapeople <notifications@share.datapeople.io>',
+    from: 'JobNav <notifications@share.datapeople.io>',
     to: recipientEmail,
     subject,
     html,
@@ -450,7 +445,7 @@ export async function sendAccessGrantedEmailToConsoleUser(
     type: 'email-granted-access-console-user',
     logLevel: LogLevel.DEBUG,
     payload: {
-      from: 'Datapeople <notifications@share.datapeople.io>',
+      from: 'JobNav <notifications@share.datapeople.io>',
       to: recipientEmail,
       customerID: customer.id,
     },
@@ -478,7 +473,7 @@ export async function sendAccessDeniedEmailToConsoleUser(
   const subject = `Access denied to ${customer.name} in Cord console`;
 
   const { error } = await resend.emails.send({
-    from: 'Datapeople <notifications@share.datapeople.io>',
+    from: 'JobNav <notifications@share.datapeople.io>',
     to: recipientEmail,
     subject,
     html,
@@ -499,7 +494,7 @@ export async function sendAccessDeniedEmailToConsoleUser(
     type: 'email-denied-access-console-user',
     logLevel: LogLevel.DEBUG,
     payload: {
-      from: 'Datapeople <notifications@share.datapeople.io>',
+      from: 'JobNav <notifications@share.datapeople.io>',
       to: recipientEmail,
       customerID: customer.id,
     },
@@ -533,7 +528,7 @@ async function sendRequestAccessEmailToConsoleUser(
   const subject = `${requesterEmail} has requested access to ${customerName} in Cord console`;
 
   const { error } = await resend.emails.send({
-    from: 'Datapeople <notifications@share.datapeople.io>',
+    from: 'JobNav <notifications@share.datapeople.io>',
     to: recipientEmail,
     subject,
     html,
@@ -554,7 +549,7 @@ async function sendRequestAccessEmailToConsoleUser(
     type: 'email-request-access-customer',
     logLevel: LogLevel.DEBUG,
     payload: {
-      from: 'Datapeople <notifications@share.datapeople.io>',
+      from: 'JobNav <notifications@share.datapeople.io>',
       to: recipientEmail,
       customerID,
     },
