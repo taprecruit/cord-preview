@@ -114,7 +114,7 @@ function extractReturnTypes(r: SingleMethod['returns']): string[] {
     return r.anyOf.flatMap(extractReturnTypes);
   } else {
     const t = r.type;
-    return Array.isArray(t) ? t : [t];
+    return typeof t === 'string' ? [t] : [...t];
   }
 }
 

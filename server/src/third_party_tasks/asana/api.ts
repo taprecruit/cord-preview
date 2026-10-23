@@ -289,7 +289,7 @@ export async function attachFile(
         Accept: 'application/json',
         Authorization: `Bearer ${accessToken}`,
       },
-      body: formData.getBuffer(),
+      body: formData.getBuffer() as Uint8Array<ArrayBuffer>,
     },
   );
   return await handleResponseJSON(response);
@@ -367,9 +367,8 @@ export async function getAsanaUsers(
   workspace: string,
 ): Promise<AsanaUser[] | undefined> {
   const users: AsanaUser[] = [];
-  let fetchUrl:
-    | string
-    | undefined = `https://app.asana.com/api/1.0/users?opt_fields=gid,email&limit=100&workspace=${workspace}`;
+  let fetchUrl: string | undefined =
+    `https://app.asana.com/api/1.0/users?opt_fields=gid,email&limit=100&workspace=${workspace}`;
   // to avoid infinite while loop, just in case.
   //TODO: This will break for companies with over maxFetchCount*limit=10k Asana users.
   let maxFetchCount = 100;

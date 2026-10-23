@@ -29,7 +29,7 @@ export async function uploadImageToS3(
     ),
     {
       method: 'PUT',
-      body: outputImageBuffer,
+      body: outputImageBuffer as Uint8Array<ArrayBuffer>,
       headers: {
         'Content-Length': `${outputImageBuffer.byteLength}`,
         'Content-Type': outputMimeType,

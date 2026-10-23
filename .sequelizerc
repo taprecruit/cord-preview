@@ -1,7 +1,12 @@
-const path = require('path');
+import path from 'path';
 
-module.exports = {
+const options = {
   config: path.resolve('.sequelize-config.cjs'),
   'migrations-path': path.resolve(process.cwd(), 'database', 'migrations'),
   debug: true,
 };
+
+// Node loads this extensionless file as ESM (package.json has "type": "module"),
+// but sequelize-cli loads it with require(), which returns this export rather
+// than the module namespace.
+export { options as 'module.exports' };

@@ -196,7 +196,7 @@ class CordWebSocketServer extends WebSocket.Server {
         index && index !== -1 ? request.url?.slice(0, index) : request.url;
       return Boolean(
         pathname === this.options.path ||
-          pathname?.startsWith(this.options.path + '/'),
+        pathname?.startsWith(this.options.path + '/'),
       );
     }
     return true;
@@ -512,6 +512,9 @@ async function graphqlSubscribeFunctionWithRestart(
     },
     [Symbol.asyncIterator]() {
       return this;
+    },
+    async [Symbol.asyncDispose]() {
+      await current.return?.();
     },
   };
   return r;

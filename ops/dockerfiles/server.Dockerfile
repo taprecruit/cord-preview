@@ -1,4 +1,4 @@
-FROM node:18-alpine3.19
+FROM node:26-alpine
 
 # The following step will likely be cached by docker build. It will only re-run
 # if the base image has changed, or after we ran `docker system prune`, which
@@ -7,7 +7,6 @@ RUN set -ex \
   && apk upgrade --no-cache \
   && apk add --no-cache \
   bash coreutils git python3 py3-pip curl postgresql16-client docker-cli zip py3-wheel aws-cli \
-  vips-dev fftw-dev build-base gcc g++ make libc-dev \
   && mkdir -p /radical /root/.aws \
   && echo -e '[default]\nregion=eu-west-2\noutput=json' >/root/.aws/config
 
@@ -45,7 +44,13 @@ ENV NODE_ENV=production
 ENV NODE_OPTIONS=--max_old_space_size=3072
 
 WORKDIR /radical
-RUN npm rebuild sharp
+# node_modules is installed on the (glibc) build host, so it only contains
+# sharp's glibc binaries. Fetch the musl ones for the same sharp version.
+RUN SHARP_VERSION="$(node -p "require('./node_modules/sharp/package.json').version")" \
+  && npm install --prefix /tmp/sharp --no-save --no-package-lock --ignore-scripts "sharp@${SHARP_VERSION}" \
+  && cp -R /tmp/sharp/node_modules/@img/. node_modules/@img/ \
+  && rm -rf /tmp/sharp /root/.npm \
+  && node -e "require('sharp')"
 
 ENTRYPOINT ["/radical/entrypoint.sh"]
 CMD ["./run-server.sh"]

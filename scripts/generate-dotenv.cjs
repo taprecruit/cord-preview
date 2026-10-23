@@ -203,7 +203,6 @@ function buildProdEnv(commitHash) {
     STRIPE_WEBHOOK_SECRET_KEY: secrets.STRIPE_SECRET_KEY.webhook_prod_key,
     DEMO_APPS_SHARED_SECRET: secrets.DEMO_APPS_SHARED_SECRET.key,
     LOOPS_SO_API_KEY: secrets.LOOPS_SO_API_KEY.api_key,
-    PYROSCOPE_ENDPOINT: 'http://monitoring.int.cord.com:4040',
   };
 }
 
@@ -279,7 +278,6 @@ function buildLoadtestEnv(commitHash) {
 
     STRIPE_SECRET_KEY: secrets.STRIPE_SECRET_KEY.test_key,
     STRIPE_WEBHOOK_SECRET_KEY: secrets.STRIPE_SECRET_KEY.webhook_test_key,
-    PYROSCOPE_ENDPOINT: undefined,
   };
 }
 
@@ -361,7 +359,6 @@ function buildDevEnv(commitHash) {
     DOCS_COOKIE_PARSER_SECRET: undefined,
     STRIPE_SECRET_KEY: secrets.STRIPE_SECRET_KEY.test_key,
     STRIPE_WEBHOOK_SECRET_KEY: 'paste-value-from-the-stripe-cli',
-    PYROSCOPE_ENDPOINT: undefined,
   };
 }
 
@@ -439,7 +436,6 @@ function buildPullReqEnv(commitHash, prNumber) {
     INCLUDE_SDK_TESTBED: '1',
 
     DOCS_COOKIE_PARSER_SECRET: undefined,
-    PYROSCOPE_ENDPOINT: undefined,
   };
 }
 

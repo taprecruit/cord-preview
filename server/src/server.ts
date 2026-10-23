@@ -23,7 +23,6 @@ import {
 } from 'server/src/logging/Logger.ts';
 import { waitForEmptyBackground } from 'server/src/util/backgroundPromise.ts';
 import { asyncLocalStorage } from 'server/src/logging/performance.ts';
-import { startPyroscope, stopPyroscope } from 'server/src/logging/pyroscope.ts';
 
 export type WorkerType = 'api' | 'admin' | 'console';
 function isWorkerType(x: any): x is WorkerType {
@@ -45,8 +44,8 @@ async function main() {
     env.NUM_WORKERS === 'auto'
       ? cpus().length
       : env.NUM_WORKERS
-      ? parseInt(env.NUM_WORKERS)
-      : 0;
+        ? parseInt(env.NUM_WORKERS)
+        : 0;
   const clusterMode = numWorkers > 0;
 
   // Some constants are derived from the above `numWorkers` value and from the
@@ -272,7 +271,6 @@ async function main() {
   // readiness.
   await Promise.all(promises);
 
-  startPyroscope();
   serverStatus.initializationComplete();
 
   if (isSingleProcessOrMaster) {
@@ -295,7 +293,6 @@ async function main() {
   // Wait for the draining process to complete.
   await serverStatus.drainHelper.waitUntilTerminating();
   await waitForEmptyBackground();
-  await stopPyroscope();
 
   // Draining is complete now, the server is done with work. The STATUS server
   // might just be sending responses to notify clients of the server shutdown,

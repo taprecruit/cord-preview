@@ -55,7 +55,7 @@ const ESBUILD_TRANSFORM_OPTIONS = {
     'BUILDCONSTANTS.sentryDSN': 'undefined',
   },
   minify: false,
-  target: 'node18',
+  target: 'node26',
   format: 'esm',
   loader: 'ts',
   sourcemap: 'inline',
@@ -91,6 +91,7 @@ export default {
     }
     const result = esbuild.transformSync(src, {
       ...ESBUILD_TRANSFORM_OPTIONS,
+      loader: filename.endsWith('.tsx') ? 'tsx' : 'ts',
       sourcefile: filename,
     });
     return { code: result.code };

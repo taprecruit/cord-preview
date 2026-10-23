@@ -109,7 +109,7 @@ export async function uploadFile({
     try {
       const putResponse = await fetch(uploadURL!, {
         method: 'PUT',
-        body: buffer,
+        body: buffer as Uint8Array<ArrayBuffer>,
         headers: {
           'Content-Type': mimeType,
         },

@@ -2,7 +2,7 @@
 
 import { vanillaExtractPlugin } from '@vanilla-extract/esbuild-plugin'; // eslint-disable-line no-restricted-imports
 import * as esbuild from 'esbuild';
-import pkg from '../opensource/sdk-js/package.json' assert { type: 'json' }; // eslint-disable-line no-restricted-imports
+import pkg from '../opensource/sdk-js/package.json' with { type: 'json' }; // eslint-disable-line no-restricted-imports
 
 /**
  * Create a single CSS file containing all our opensource components' CSS.

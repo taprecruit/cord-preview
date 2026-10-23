@@ -15,7 +15,7 @@ async function main() {
       esbuild.build({
         bundle: true,
         format: 'cjs',
-        target: 'node18',
+        target: 'node26',
         minify: false,
         entryPoints: [`scripts/${fn}`],
         outfile: `dist/scripts/${fn.substring(0, fn.length - 3)}.cjs`,
@@ -27,7 +27,7 @@ async function main() {
   await esbuild.build({
     bundle: true,
     format: 'esm',
-    target: 'node18',
+    target: 'node26',
     minify: false,
     plugins: [ImportGlobPlugin()],
     entryPoints: ['index.ts'],
@@ -44,7 +44,7 @@ async function main() {
   await esbuild.build({
     bundle: true,
     format: 'esm',
-    target: 'node18',
+    target: 'node26',
     minify: false,
     entryPoints: ['diff.ts'],
     outfile: 'dist/diff.js',

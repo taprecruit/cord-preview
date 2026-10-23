@@ -21,5 +21,5 @@ export function useFeatureFlag<
   // key and T is some valid value type, but not that every K has a specific
   // associated T.  See https://github.com/microsoft/TypeScript/issues/30581 for
   // more detail.
-  return enabledInPrefs ? true : (featureFlags[feature.key] as any);
+  return (enabledInPrefs ? true : featureFlags[feature.key]) as any;
 }

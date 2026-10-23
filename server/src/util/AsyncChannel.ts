@@ -37,6 +37,7 @@ export class AsyncChannel<T> {
       return: async () => ({ value: undefined, done: true }),
       throw: async () => ({ value: undefined, done: true }),
       [Symbol.asyncIterator]: () => iter,
+      [Symbol.asyncDispose]: async () => {},
     };
     return iter;
   }
