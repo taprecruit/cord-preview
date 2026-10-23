@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import {
   ConsoleApplicationRoutes,
   getBaseApplicationURL,
+  getBaseSettingsURL,
 } from 'external/src/entrypoints/console/routes.ts';
 import ApplicationSettings from 'external/src/entrypoints/console/pages/ApplicationSettings.tsx';
 import ApplicationGettingStarted from 'external/src/entrypoints/console/pages/ApplicationGettingStarted.tsx';
@@ -107,12 +108,7 @@ function ApplicationRoutes() {
       />
       <Route
         path="*"
-        element={
-          <Navigate
-            to={ConsoleApplicationRoutes.APPLICATION_SETTINGS}
-            replace
-          />
-        }
+        element={<Navigate to={getBaseSettingsURL(idFromParams)} replace />}
       />
     </Routes>
   );

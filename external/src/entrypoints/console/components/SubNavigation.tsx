@@ -1,5 +1,5 @@
 import { Nav, Tab } from 'react-bootstrap';
-import { Link, useLocation, useResolvedPath } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { createUseStyles } from 'react-jss';
 import cx from 'classnames';
 
@@ -37,14 +37,15 @@ const useStyles = createUseStyles({
 });
 
 function SubNavigationItem({
+  baseUrl: url,
   pathName,
   tabName,
 }: {
+  baseUrl: string;
   pathName: string;
   tabName: string;
 }) {
   const classes = useStyles();
-  const url = useResolvedPath('').pathname;
   const location = useLocation();
   const currentlyActive = location.pathname.startsWith(`${url}/${pathName}`);
 
@@ -75,8 +76,10 @@ function SubNavigationItem({
 }
 
 export function SubNavigation({
+  baseUrl,
   navigationItems,
 }: {
+  baseUrl: string;
   navigationItems: { [key: string]: string };
 }) {
   return (
@@ -86,6 +89,7 @@ export function SubNavigation({
           {Object.entries(navigationItems).map(([pathName, tabName]) => (
             <SubNavigationItem
               key={pathName}
+              baseUrl={baseUrl}
               pathName={pathName}
               tabName={tabName}
             />

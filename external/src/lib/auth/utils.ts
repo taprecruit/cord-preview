@@ -98,7 +98,7 @@ export const mondayAuthURL = (state: string) => {
 
 export const getAuthNonceFromCookie = () => {
   let nonce = '';
-  const cookies = cookie.parse(document.cookie);
+  const cookies = cookie.parseCookie(document.cookie);
   if (cookies['nonce'] !== undefined && cookies['nonce'] !== null) {
     nonce = cookies['nonce'];
   } else {

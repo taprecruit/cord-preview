@@ -28,11 +28,10 @@ export const updateUserDetailsMutationResolver: Resolvers['Mutation']['updateUse
         clientId: Env.AUTH0_MTM_CLIENT_ID,
         domain: Env.AUTH0_GENERAL_DOMAIN,
         clientSecret: Env.AUTH0_MTM_CLIENT_SECRET,
-        scope: 'update:users',
       });
 
       // Update name in Auth0
-      await auth0.updateUser({ id: auth0UserID }, { name });
+      await auth0.users.update(auth0UserID, { name });
 
       const consoleMutator = await new ConsoleUserMutator(
         context.session.viewer,

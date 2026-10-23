@@ -19,7 +19,7 @@ export default async function SlackLinkingConfirmationHandler(
   res: Response,
   _next: NextFunction,
 ) {
-  const nonce = cookie.parse(req.headers.cookie || '')['nonce'] || nanoid();
+  const nonce = cookie.parseCookie(req.headers.cookie || '')['nonce'] || nanoid();
   const { authToken } = req.query;
   if (typeof authToken !== 'string' || !authToken) {
     res.status(400).send('Bad request: Missing authToken parameter').end();

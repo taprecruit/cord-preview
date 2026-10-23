@@ -54,9 +54,7 @@ export class AsyncTierJobDefinition<
     const handler = async (data: D, logger: Logger) =>
       await this.func(data, logger);
 
-    const wrappedHandler = (
-      job: PgBoss.JobWithDoneCallback<D, JsonValue | void>,
-    ) => {
+    const wrappedHandler = async (job: PgBoss.Job<D>) => {
       const logger = new Logger(Viewer.createAnonymousViewer(), {
         job: {
           id: job.id,
@@ -66,26 +64,24 @@ export class AsyncTierJobDefinition<
       });
       logger.debug(`Starting job '${job.name}':${job.id}`);
 
-      handler(job.data, logger).then(
-        (result) => {
-          job.done(null, result);
-          logger.debug(`Completed job '${job.name}':${job.id}`);
-        },
-        (err) => {
-          try {
-            logger.logException(
-              `Exception thrown by job '${job.name}':${job.id} : ${err}`,
-              err,
-            );
-          } catch {
-            // If our attempt to log fails, there's not much we can do.  But we
-            // catch any exception here so that the following `job.done` is
-            // guaranteed to run.
-          }
+      try {
+        const result = await handler(job.data, logger);
+        logger.debug(`Completed job '${job.name}':${job.id}`);
+        return result;
+      } catch (err) {
+        try {
+          logger.logException(
+            `Exception thrown by job '${job.name}':${job.id} : ${err}`,
+            err,
+          );
+        } catch {
+          // If our attempt to log fails, there's not much we can do.  But we
+          // catch any exception here so that the job is still marked as
+          // failed by the rethrow below.
+        }
 
-          job.done(err);
-        },
-      );
+        throw err;
+      }
     };
 
     const bossOpts =

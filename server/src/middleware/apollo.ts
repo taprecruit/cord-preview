@@ -323,7 +323,7 @@ export async function createApolloServer(
         websocket: WebSocket,
         connectionContext: ConnectionContext,
       ) {
-        const cookieToken = cookie.parse(
+        const cookieToken = cookie.parseCookie(
           connectionContext.request.headers.cookie || '',
         )['token'] as string | undefined;
 

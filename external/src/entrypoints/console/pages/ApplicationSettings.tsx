@@ -5,6 +5,7 @@ import {
   ConsoleApplicationRoutes,
   ConsoleApplicationSettingsRoutes,
   getBaseApplicationURL,
+  getBaseSettingsURL,
 } from 'external/src/entrypoints/console/routes.ts';
 import ApplicationRedirectURIs from 'external/src/entrypoints/console/pages/ApplicationRedirectURIs.tsx';
 import ApplicationGeneral from 'external/src/entrypoints/console/pages/ApplicationGeneral.tsx';
@@ -68,7 +69,10 @@ export default function ApplicationSettings() {
       <Helmet>
         <title>{application?.name ?? 'Project'} Configuration</title>
       </Helmet>
-      <SubNavigation navigationItems={navigationItems} />
+      <SubNavigation
+        baseUrl={getBaseSettingsURL(idFromParams)}
+        navigationItems={navigationItems}
+      />
       <div>
         <Routes>
           <Route

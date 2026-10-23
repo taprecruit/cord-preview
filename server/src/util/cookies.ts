@@ -35,7 +35,7 @@ export function parseUtmParameters(utm: any) {
 }
 
 function parametersFromCookie(value: string) {
-  const parsedCookies = cookie.parse(value);
+  const parsedCookies = cookie.parseCookie(value);
 
   return {
     utmParameters: parseUtmParameters(parsedCookies[UTM_COOKIE_KEY]),

@@ -54,7 +54,7 @@ function getContextForHTTPRequest(
 ): Promise<RequestContext> {
   const authorizationHeader = req.header('Authorization');
 
-  const cookieToken = cookie.parse(req.header('Cookie') || '')['token'] as
+  const cookieToken = cookie.parseCookie(req.header('Cookie') || '')['token'] as
     | string
     | undefined;
   return authenticatedRequestContext(

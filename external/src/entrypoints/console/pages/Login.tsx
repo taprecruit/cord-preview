@@ -43,7 +43,7 @@ export default function Login() {
 
   useEffect(() => {
     if (!isLoading && user && connected) {
-      const { signup_coupon: signupCoupon } = cookie.parse(document.cookie);
+      const { signup_coupon: signupCoupon } = cookie.parseCookie(document.cookie);
 
       const createNewCustomerParam = window.localStorage.getItem(
         FORCE_CREATE_NEW_CUSTOMER_KEY,
@@ -70,7 +70,7 @@ export default function Login() {
   }, [isLoading, connected, syncUser, user, refetchCustomerInfo]);
 
   const forceCreateNewCustomer = useCallback(() => {
-    const { signup_coupon: signupCoupon } = cookie.parse(document.cookie);
+    const { signup_coupon: signupCoupon } = cookie.parseCookie(document.cookie);
 
     void syncUser({
       variables: {
