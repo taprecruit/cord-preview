@@ -35,14 +35,13 @@ export const syncUserMutationResolver: Resolvers['Mutation']['syncUser'] =
         clientId: Env.AUTH0_MTM_CLIENT_ID,
         domain: Env.AUTH0_GENERAL_DOMAIN,
         clientSecret: Env.AUTH0_MTM_CLIENT_SECRET,
-        scope: 'read:users',
       });
 
       if (!user.loopsUserID) {
         let firstName: string | undefined = undefined;
         let lastName: string | undefined = undefined;
         if (user.auth0UserID) {
-          const auth0User = await auth0.getUser({ id: user.auth0UserID });
+          const auth0User = await auth0.users.get(user.auth0UserID);
           firstName = auth0User.given_name;
           lastName = auth0User.family_name;
         }

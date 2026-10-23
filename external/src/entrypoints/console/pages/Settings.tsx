@@ -5,7 +5,10 @@ import Main from 'external/src/entrypoints/console/ui/Main.tsx';
 import Header from 'external/src/entrypoints/console/ui/Header.tsx';
 import { SettingsCustomer } from 'external/src/entrypoints/console/pages/SettingsCustomer.tsx';
 import { SubNavigation } from 'external/src/entrypoints/console/components/SubNavigation.tsx';
-import { ConsoleSettingsRoutes } from 'external/src/entrypoints/console/routes.ts';
+import {
+  ConsoleRoutes,
+  ConsoleSettingsRoutes,
+} from 'external/src/entrypoints/console/routes.ts';
 import { SettingsUser } from 'external/src/entrypoints/console/pages/SettingsUser.tsx';
 import { FeatureFlags } from 'common/const/FeatureFlags.ts';
 import { useFeatureFlag } from 'external/src/effects/useFeatureFlag.ts';
@@ -29,7 +32,10 @@ export function Settings() {
       <Helmet>
         <title>Settings</title>
       </Helmet>
-      <SubNavigation navigationItems={navigationItems} />
+      <SubNavigation
+        baseUrl={ConsoleRoutes.SETTINGS}
+        navigationItems={navigationItems}
+      />
       <div>
         <Routes>
           <Route

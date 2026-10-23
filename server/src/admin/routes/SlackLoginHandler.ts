@@ -73,7 +73,7 @@ export default async function SlackLoginHandler(req: Request, res: Response) {
     return res.redirect(APP_ORIGIN);
   }
 
-  const cookieNonce = cookie.parse(req.header('Cookie') || '')[
+  const cookieNonce = cookie.parseCookie(req.header('Cookie') || '')[
     'admin_nonce'
   ] as string | undefined;
   if (!cookieNonce) {

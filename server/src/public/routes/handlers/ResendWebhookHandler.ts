@@ -199,8 +199,8 @@ export default async function ResendWebhookHandler(
   let emailContent: {
     text?: string | null;
     html?: string | null;
-    headers?: Record<string, string>;
-    attachments?: Array<{ id: string; filename: string }>;
+    headers?: Record<string, string> | null;
+    attachments?: Array<{ id: string; filename: string | null }>;
   };
   try {
     const emailResponse = await resend.emails.receiving.get(emailId);

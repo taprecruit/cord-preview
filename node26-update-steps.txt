@@ -1,0 +1,19 @@
+sudo apt update && sudo apt upgrade
+sudo apt install -y libatomic1
+
+sleep 5 && sudo shutdown -r now &
+
+nvm install 26
+nvm alias default 26
+npm install -g npm@12.2.1
+
+cd ~/cord-preview
+docker compose down
+sudo docker system prune
+sudo docker volume prune
+
+rm -rf node_modules
+rm -rf dist/generic
+
+# just restart if next fails, or `sudo swapon /swapfile` if still fails
+./build-cord.sh

@@ -6,8 +6,8 @@ export const GA_MEASUREMENT_COOKIE_KEY = `_ga_${
 }`;
 
 export type GACookieType = {
-  cookie: string;
-  measurementCookie: string;
+  cookie: string | undefined;
+  measurementCookie: string | undefined;
 } | null;
 
 export function extractFromGACookies(gaCookie: GACookieType | undefined) {

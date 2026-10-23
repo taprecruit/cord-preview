@@ -86,7 +86,7 @@ function getNonceFromRequest(req: Request) {
     anonymousLogger().warn('No cookies found');
     return '';
   }
-  const parsedCookies = cookie.parse(cookies);
+  const parsedCookies = cookie.parseCookie(cookies);
 
   const nonce = parsedCookies['nonce'];
 

@@ -49,7 +49,7 @@ index 5e35a38..d92a5ae 100644
    }
    async rollback() {
 diff --git a/node_modules/sequelize/types/model.d.ts b/node_modules/sequelize/types/model.d.ts
-index 83c211b..a35b889 100644
+index 7ab36db..6d3dec0 100644
 --- a/node_modules/sequelize/types/model.d.ts
 +++ b/node_modules/sequelize/types/model.d.ts
 @@ -365,7 +365,10 @@ export interface WhereOperators<AttributeType = any> {

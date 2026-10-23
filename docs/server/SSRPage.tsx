@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { StaticRouter } from 'react-router-dom/server.js';
+import { StaticRouter } from 'react-router-dom';
 import type { Request, RequestHandler, Response } from 'express';
 
 import { renderPage } from 'docs/server/ui/util.tsx';
