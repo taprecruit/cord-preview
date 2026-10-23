@@ -107,7 +107,7 @@ export function getTextAtPointConfig(
   if (isTextNode(range.startContainer)) {
     const selectedCharOffset = range.startOffset;
     const textNode = range.startContainer;
-    const textLength = textNode.textContent!.length;
+    const textLength = textNode.textContent.length;
     range.setEnd(textNode, selectedCharOffset);
     const rangeRect = range.getBoundingClientRect();
     const xVsPointer = rangeRect.x - x;
@@ -522,7 +522,7 @@ function isFixedOrInsideFixedElement(element: Element): boolean {
   }
 
   const parent = element.parentElement;
-  if (parent && parent.nodeName !== ('BODY' || 'HTML')) {
+  if (parent && parent.nodeName !== 'BODY' && parent.nodeName !== 'HTML') {
     return isFixedOrInsideFixedElement(parent);
   }
 

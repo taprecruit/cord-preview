@@ -138,7 +138,7 @@ export const buildForNode = async ({ loggingProcessName, define, ...rest }) => {
     platform: 'node',
     bundle: true,
     format: 'esm',
-    target: 'node18',
+    target: 'node26',
     minify: false,
     plugins: [
       graphqlLoaderPlugin.default(),

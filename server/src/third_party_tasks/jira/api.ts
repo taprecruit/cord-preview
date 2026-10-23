@@ -360,7 +360,7 @@ export async function addIssueAttachment(
         'X-Atlassian-Token': 'no-check',
         Accept: 'application/json',
       },
-      body: form.getBuffer(),
+      body: form.getBuffer() as Uint8Array<ArrayBuffer>,
     },
   );
 

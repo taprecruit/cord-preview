@@ -70,7 +70,7 @@ export function run(
         console.error(stderr);
         reject(error);
       } else {
-        resolve(stdout);
+        resolve(stdout.toString());
       }
     });
   });

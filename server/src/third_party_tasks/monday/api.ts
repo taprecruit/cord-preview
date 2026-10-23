@@ -629,7 +629,7 @@ export async function uploadFile(
     headers: {
       Authorization: accessToken,
     },
-    body: form.getBuffer(),
+    body: form.getBuffer() as Uint8Array<ArrayBuffer>,
   });
 }
 

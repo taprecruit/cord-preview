@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import locales from 'dayjs/locale.json' assert { type: 'json' };
+import locales from 'dayjs/locale.json' with { type: 'json' };
 import * as prettier from 'prettier';
 
 async function main() {

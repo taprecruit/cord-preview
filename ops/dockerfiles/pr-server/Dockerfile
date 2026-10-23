@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:26-alpine
 
 # Passing in the git hash of the checked out, mainly to avoid caching the
 # following steps.
