@@ -1,0 +1,5 @@
+*
+!package.json
+!package-lock.json
+!patches
+!opensource/sdk-js/packages/*/package.json

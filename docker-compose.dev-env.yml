@@ -1,0 +1,71 @@
+# Cord in development mode, for inclusion from taprecruit-dev-env's
+# docker-compose.yml. Uses the shared `postgres` service defined in
+# analytics-engine/docker-compose.yml. docker-compose.yml in this directory is
+# the deployment setup and is not meant for local development.
+#
+# One-time host setup: run scripts/generate-localhost-certificates.sh and make
+# sure local.cord.com resolves to 127.0.0.1. (/etc/hosts)
+
+services:
+  cord-redis:
+    container_name: cord-redis
+    image: redis:6.0.5-alpine
+
+  # Creates Cord's role, database and the uuid-ossp extension on the shared
+  # postgres, then exits.
+  cord-db-init:
+    container_name: cord-db-init
+    image: postgres:16
+    environment:
+      PGHOST: postgres
+      PGUSER: root
+      PGPASSWORD: password
+    command: ["bash", "/init/dev-env-db-init.sh"]
+    volumes:
+      - ./ops/dev-env-db-init.sh:/init/dev-env-db-init.sh:ro
+    depends_on:
+      - postgres
+    restart: "no"
+
+  cord:
+    container_name: cord
+    image: cord-dev
+    build:
+      context: .
+      dockerfile: ops/dockerfiles/dev-env.Dockerfile
+    command: ./ops/dev-env-start.sh
+    environment:
+      DOTENV_CONFIG_PATH: /radical/ops/dev-env.env
+      NODE_OPTIONS: --max_old_space_size=2048
+      # esbuild is a Go binary; without these the SDK build alone peaks at
+      # ~2.5GB and the Docker VM's OOM killer starts picking off containers
+      GOMEMLIMIT: 1200MiB
+      GOGC: "50"
+    volumes:
+      - .:/radical
+      # keep the image's Linux node_modules instead of the host's
+      - /radical/node_modules
+      # build output stays inside the Linux filesystem
+      - cord-dist:/radical/dist
+      - ${HOME}/Library/Application Support/mkcert:/certs:ro
+    ports:
+      - "8161:8161" # API
+      - "8123:8123" # admin
+      - "8171:8171" # console
+      - "8179:8179" # SDK / testbed
+      - "8191:8191" # docs
+    networks:
+      default:
+        # lets other containers (e.g. taprecruit-app) reach cord under the
+        # name its certificate is issued for
+        aliases:
+          - local.cord.com
+    depends_on:
+      cord-redis:
+        condition: service_started
+      cord-db-init:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+volumes:
+  cord-dist: {}
