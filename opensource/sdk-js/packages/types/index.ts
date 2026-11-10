@@ -74,6 +74,13 @@ export type Translations = {
 
 export type CordSDKInitOptions = CordSDKOptions & {
   client_auth_token?: string;
+  /**
+   * WebSocket origin for the Cord API, such as `wss://local.cord.com:8161`.
+   * When set, the SDK opens its GraphQL socket here instead of the host
+   * compiled into this build. Only `wss:` URLs are accepted. Omit it to keep
+   * the compiled host.
+   */
+  base_api_url?: string;
   react_package_version?: string;
   onInitError?: InitErrorCallback;
 };

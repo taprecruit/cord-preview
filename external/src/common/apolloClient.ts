@@ -40,12 +40,15 @@ export type ErrorCallback = (error: { message: string }) => void;
 export const apolloConnection = ({
   token,
   apiHost,
+  socketBaseUrl,
   errorCallback,
   logGraphQLErrors,
   fetchAccessToken = true,
 }: {
   token: string | null;
   apiHost: string;
+  // Full wss:// origin. When omitted, the socket is wss://${apiHost}.
+  socketBaseUrl?: string;
   errorCallback: ErrorCallback;
   logGraphQLErrors: boolean;
   fetchAccessToken?: boolean;
@@ -60,7 +63,7 @@ export const apolloConnection = ({
   const path = payload?.app_id ? `gql/${payload.app_id}` : 'gql';
 
   const subscriptionClient = new SubscriptionClient(
-    `wss://${apiHost}/${path}`,
+    `${socketBaseUrl ?? `wss://${apiHost}`}/${path}`,
     {
       reconnect: true,
       timeout: 10000,

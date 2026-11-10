@@ -30,6 +30,10 @@ import {
   AnnotationSDKProvider,
 } from 'sdk/client/core/annotations.tsx';
 import { API_SERVER_HOST, APP_SERVER_HOST } from 'common/const/Urls.ts';
+import {
+  acceptedCordSocketBaseUrl,
+  resolveCordSocketBaseUrl,
+} from 'sdk/client/core/socketBaseUrl.ts';
 
 import { LogLevel } from 'common/types/index.ts';
 import { apolloConnection } from 'external/src/common/apolloClient.ts';
@@ -190,6 +194,8 @@ export class CordSDK implements IPrivateCordSDK {
   apolloClient?: ApolloClient<any>;
   subscriptionClient?: SubscriptionClient;
   accessToken?: string;
+  // wss:// origin of the GraphQL socket opened by the last successful init.
+  socketBaseUrl?: string;
   options: RequiredOptions = DEFAULT_OPTIONS;
   thirdPartyInstances: ThirdPartyInstances = {
     monacoEditors: new MonacoEditors(),
@@ -399,6 +405,19 @@ export class CordSDK implements IPrivateCordSDK {
       throw new Error('Missing client_auth_token');
     }
 
+    const socketBaseUrl = resolveCordSocketBaseUrl(
+      options.base_api_url,
+      API_SERVER_HOST,
+    );
+    if (
+      options.base_api_url &&
+      acceptedCordSocketBaseUrl(options.base_api_url) === undefined
+    ) {
+      console.warn(
+        `Ignoring base_api_url ${options.base_api_url}; Cord only accepts a wss:// URL`,
+      );
+    }
+
     const newOptions = mergeOptions(
       DEFAULT_OPTIONS,
       checkAndCleanOptions(options),
@@ -408,7 +427,8 @@ export class CordSDK implements IPrivateCordSDK {
     // a re-render.
     if (
       !this.haveCordOptionsChanged(newOptions) &&
-      accessTokenPayloadsMatch(this.accessToken, client_auth_token)
+      accessTokenPayloadsMatch(this.accessToken, client_auth_token) &&
+      this.socketBaseUrl === socketBaseUrl
     ) {
       console.warn('Initializing CordSDK with the same options');
       return;
@@ -418,6 +438,7 @@ export class CordSDK implements IPrivateCordSDK {
 
     if (
       !accessTokenPayloadsMatch(this.accessToken, client_auth_token) ||
+      this.socketBaseUrl !== socketBaseUrl ||
       !this.apolloClient ||
       !this.subscriptionClient
     ) {
@@ -426,6 +447,7 @@ export class CordSDK implements IPrivateCordSDK {
       const { apolloClient, subscriptionClient } = apolloConnection({
         token: client_auth_token,
         apiHost: API_SERVER_HOST,
+        socketBaseUrl,
         logGraphQLErrors: true,
         errorCallback: (error) => {
           onInitError?.(error);
@@ -433,6 +455,7 @@ export class CordSDK implements IPrivateCordSDK {
       });
 
       this.accessToken = client_auth_token;
+      this.socketBaseUrl = socketBaseUrl;
       this.apolloClient = apolloClient;
       this.subscriptionClient = subscriptionClient;
       this._presence = new PresenceSDK(this.apolloClient);
@@ -476,6 +499,7 @@ export class CordSDK implements IPrivateCordSDK {
     this.subscriptionClient?.close(true);
     this.subscriptionClient = undefined;
     this.accessToken = undefined;
+    this.socketBaseUrl = undefined;
     this.thirdPartyInstances = {
       monacoEditors: new MonacoEditors(),
       reactTrees: new ReactTrees(),
