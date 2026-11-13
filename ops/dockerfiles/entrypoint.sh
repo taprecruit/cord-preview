@@ -6,6 +6,13 @@ then
   cat >~/.aws/credentials
 fi
 
+# On ECS the tier config file is passed in the CORD_CONFIG environment variable.
+if test "$CORD_TIER" && test "$CORD_CONFIG"
+then
+  mkdir -p /radical/config
+  printf '%s\n' "$CORD_CONFIG" >"/radical/config/$CORD_TIER"
+fi
+
 if test "$CORD_TIER" && test -f "/radical/config/$CORD_TIER"
 then
   rm -f /radical/.env
