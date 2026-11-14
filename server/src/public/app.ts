@@ -1,3 +1,5 @@
+import * as path from 'path';
+
 import MainRouter from 'server/src/public/routes/MainRouter.ts';
 import { RequestContextMiddleware } from 'server/src/middleware/request_context.ts';
 import {
@@ -19,6 +21,14 @@ const ROBOTS_TXT = `
 User-agent: *
 Disallow: /
 `.trim();
+
+// The emoji picker fetches this from the app host so a customer's content
+// security policy allows it. The response needs Access-Control-Allow-Origin,
+// which the old nginx proxy added and a redirect to S3 does not.
+const EMOJI_DATA_PATH = path.resolve(
+  process.cwd(),
+  'external/src/static/emoji-data.json',
+);
 
 export async function createExpressApp() {
   const {
@@ -50,6 +60,15 @@ export async function createExpressApp() {
   app.get('/robots.txt', (_req, res) => {
     res.status(200).contentType('text/plain').send(ROBOTS_TXT);
     return;
+  });
+
+  app.get('/static/emoji-data.json', (_req, response) => {
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.sendFile(EMOJI_DATA_PATH, (error) => {
+      if (error && !response.headersSent) {
+        response.status(404).end();
+      }
+    });
   });
 
   // Setup HTTP request auth and routing
